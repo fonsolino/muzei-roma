@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Muzei Rome</string>
+    <string name="source_title">Rome: Eternal Beauty</string>
+    <string name="source_description">Masterpieces from the museums and squares of Rome.</string>
+    <string name="instructions">To activate: open the Muzei Art Wallpaper app, select "Sources", and choose "Rome: Eternal Beauty".</string>
+    <string name="command_next">Next artwork</string>
+    <string name="command_wiki">Details on Wikipedia</string>
+    <string name="archive_status">Archive: %1$d artworks ready</string>
+    <string name="btn_download_more">Download 10 more artworks</string>
+    <string name="loading_archive">Populating archive...</string>
+</resources>
