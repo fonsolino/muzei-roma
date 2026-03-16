@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Muzei Roma</string>
+    <string name="source_title">Roma: Bellezza Eterna</string>
+    <string name="source_description">Capolavori dai musei e dalle piazze di Roma.</string>
+    <string name="instructions">Per attivare: apri l\'app Muzei Art Wallpaper, seleziona "Fonti" e scegli "Roma: Bellezza Eterna".</string>
+    <string name="command_next">Prossima opera</string>
+    <string name="command_wiki">Dettagli su Wikipedia</string>
+    <string name="archive_status">Archivio: %1$d opere pronte</string>
+    <string name="btn_download_more">Scarica altre 10 opere</string>
+    <string name="loading_archive">Popolamento archivio in corso...</string>
+</resources>

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <!--
+        Icona Muzei Roma — Colosseo stilizzato + testo "m.rm"
+        Sfondo: #8B0000 (rosso scuro, dal layer background)
+        Elementi foreground: oro #D4AF37
+
+        Geometria Colosseo (corpo trapezoidale, centro x=54):
+          Outer: base x=16–92 (76dp), top x=20–88 (68dp), y=24–68 (44dp)
+          Tier 3 (alto):   5 finestre rett., y=28–36
+          Tier 2 (medio):  5 archi con lunetta, spring y=47, base y=53
+          Tier 1 (basso):  5 archi con lunetta, spring y=61, base y=66
+          Floor strip 3↔2: y=36–42 (6dp) — oro pieno visibile
+          Floor strip 2↔1: y=53–57 (4dp) — oro pieno visibile
+          Attico:          y=24–28 (4dp) — oro pieno visibile
+        fillType="evenOdd" → le aperture sono trasparenti (sfondo rosso visibile)
+
+        Basamento: striscia leggermente più larga, y=68–71
+
+        Testo "m.rm" stroke-based, stile Muzei (bold, arrotondato), y=73–82
+    -->
+
+    <!-- ── Corpo Colosseo con aperture (evenOdd) ─────────────────────────── -->
+    <path
+        android:fillColor="#D4AF37"
+        android:fillType="evenOdd"
+        android:pathData="
+            M16,68 L20,24 L88,24 L92,68 Z
+
+            M32,36 L32,28 L37,28 L37,36 Z
+            M42,36 L42,28 L47,28 L47,36 Z
+            M52,36 L52,28 L57,28 L57,36 Z
+            M62,36 L62,28 L67,28 L67,36 Z
+            M72,36 L72,28 L77,28 L77,36 Z
+
+            M31,53 L31,47 A3.5,3.5 0 0 1 38,47 L38,53 Z
+            M41,53 L41,47 A3.5,3.5 0 0 1 48,47 L48,53 Z
+            M51,53 L51,47 A3.5,3.5 0 0 1 58,47 L58,53 Z
+            M61,53 L61,47 A3.5,3.5 0 0 1 68,47 L68,53 Z
+            M71,53 L71,47 A3.5,3.5 0 0 1 78,47 L78,53 Z
+
+            M31,66 L31,61 A3.5,3.5 0 0 1 38,61 L38,66 Z
+            M41,66 L41,61 A3.5,3.5 0 0 1 48,61 L48,66 Z
+            M51,66 L51,61 A3.5,3.5 0 0 1 58,61 L58,66 Z
+            M61,66 L61,61 A3.5,3.5 0 0 1 68,61 L68,66 Z
+            M71,66 L71,61 A3.5,3.5 0 0 1 78,61 L78,66 Z
+        " />
+
+    <!-- ── Basamento (striscia più larga sotto il corpo) ─────────────────── -->
+    <path
+        android:fillColor="#D4AF37"
+        android:pathData="M13,68 L95,68 L95,71 L13,71 Z" />
+
+    <!-- ── Testo "m.rm" in stile Muzei ──────────────────────────────────── -->
+    <!-- Prima "m": tre gambe + due archi, x=33–47 -->
+    <path
+        android:strokeColor="#D4AF37"
+        android:strokeWidth="2.5"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:fillColor="#00000000"
+        android:pathData="
+            M33,82 L33,73 Q36.5,69.5 40,73 L40,82
+            M40,73 Q43.5,69.5 47,73 L47,82
+        " />
+
+    <!-- Punto "." — quadrato pieno centrato tra le due 'm' -->
+    <path
+        android:fillColor="#D4AF37"
+        android:pathData="M49,78 L52,78 L52,81 L49,81 Z" />
+
+    <!-- "r": gambo verticale + spalla curva destra -->
+    <path
+        android:strokeColor="#D4AF37"
+        android:strokeWidth="2.5"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:fillColor="#00000000"
+        android:pathData="M53,82 L53,73 Q55.5,70 58.5,73 L60,73" />
+
+    <!-- Seconda "m": x=62–76 -->
+    <path
+        android:strokeColor="#D4AF37"
+        android:strokeWidth="2.5"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:fillColor="#00000000"
+        android:pathData="
+            M62,82 L62,73 Q65.5,69.5 69,73 L69,82
+            M69,73 Q72.5,69.5 76,73 L76,82
+        " />
+
+</vector>

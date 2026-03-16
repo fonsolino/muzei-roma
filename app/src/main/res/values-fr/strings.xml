@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Muzei Rome</string>
+    <string name="source_title">Rome: Beauté Éternelle</string>
+    <string name="source_description">Chefs-d\'œuvre des musées et des places de Rome.</string>
+    <string name="instructions">Pour activer: ouvrez l\'application Muzei Art Wallpaper, sélectionnez "Sources" et choisissez "Rome: Beauté Éternelle".</string>
+    <string name="command_next">Art suivant</string>
+    <string name="command_wiki">Détails sur Wikipédia</string>
+    <string name="archive_status">Archives: %1$d œuvres prêtes</string>
+    <string name="btn_download_more">Télécharger 10 œuvres de plus</string>
+    <string name="loading_archive">Population des archives…</string>
+</resources>

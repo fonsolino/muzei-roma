@@ -1,0 +1,24 @@
+# Android
+*.iml
+.gradle/
+local.properties
+/build/
+/app/build/
+captures/
+.externalNativeBuild/
+.cxx/
+*.apk
+*.aab
+*.ap_
+*.dex
+
+# IntelliJ / Android Studio
+.idea/
+!.idea/.gitignore
+!.idea/codeStyles/
+*.keystore
+keystore.properties
+
+# OS
+.DS_Store
+Thumbs.db
