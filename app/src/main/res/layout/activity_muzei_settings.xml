@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="24dp"
+    android:background="#FFF8F0">
+
+    <!-- Opera del giorno -->
+    <TextView
+        android:id="@+id/ms_tv_day_artwork"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingVertical="12dp"
+        android:text="Opera del giorno: —"
+        android:textColor="#5C3317"
+        android:textSize="14sp"
+        android:textStyle="italic"
+        android:lineSpacingMultiplier="1.3" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="16dp"
+        android:background="#D4AF37" />
+
+    <!-- Modalità -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Modalità wallpaper"
+        android:textColor="#555555"
+        android:textStyle="bold"
+        android:textSize="13sp" />
+
+    <RadioGroup
+        android:id="@+id/ms_rg_mode"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:orientation="vertical">
+
+        <RadioButton
+            android:id="@+id/ms_rb_day_only"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Solo immagine del giorno"
+            android:textColor="#333333"
+            android:textSize="14sp"
+            android:buttonTint="#8B0000" />
+
+        <RadioButton
+            android:id="@+id/ms_rb_rotation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="Rotazione con immagine del giorno"
+            android:textColor="#333333"
+            android:textSize="14sp"
+            android:buttonTint="#8B0000" />
+
+    </RadioGroup>
+
+    <!-- Numero rotazioni -->
+    <LinearLayout
+        android:id="@+id/ms_layout_rotations_row"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Opere random tra ogni immagine del giorno:"
+            android:textColor="#555555"
+            android:textSize="13sp" />
+
+        <Button
+            android:id="@+id/ms_btn_rot_minus"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:minWidth="0dp"
+            android:padding="0dp"
+            android:text="−"
+            android:textSize="18sp"
+            android:backgroundTint="#D4AF37"
+            android:textColor="#FFFFFF" />
+
+        <TextView
+            android:id="@+id/ms_tv_rotations_count"
+            android:layout_width="44dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="3"
+            android:textColor="#8B0000"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/ms_btn_rot_plus"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:minWidth="0dp"
+            android:padding="0dp"
+            android:text="+"
+            android:textSize="18sp"
+            android:backgroundTint="#D4AF37"
+            android:textColor="#FFFFFF" />
+
+    </LinearLayout>
+
+    <!-- Spacer -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <!-- Pulsante Applica -->
+    <Button
+        android:id="@+id/ms_btn_apply"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#8B0000"
+        android:text="Salva e applica"
+        android:textColor="#FFFFFF"
+        android:textSize="15sp" />
+
+</LinearLayout>

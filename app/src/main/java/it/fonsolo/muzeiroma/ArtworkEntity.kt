@@ -6,6 +6,7 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "artworks")
 data class ArtworkEntity(
     @PrimaryKey val code: String,
+    val day: Int = 0,
     val author: String,
     val title: String,
     val titleEn: String,

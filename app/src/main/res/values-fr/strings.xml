@@ -1,11 +1,25 @@
 <resources>
-    <string name="app_name">Muzei Rome</string>
-    <string name="source_title">Rome: Beauté Éternelle</string>
-    <string name="source_description">Chefs-d\'œuvre des musées et des places de Rome.</string>
-    <string name="instructions">Pour activer: ouvrez l\'application Muzei Art Wallpaper, sélectionnez "Sources" et choisissez "Rome: Beauté Éternelle".</string>
-    <string name="command_next">Art suivant</string>
+    <string name="app_name">Muzei Roma</string>
+    <string name="source_title">Rome : Beauté Éternelle</string>
+    <string name="source_description">Chefs-d\'oeuvre des musées et des places de Rome.</string>
+    <string name="instructions">Pour activer : ouvrez l\'app Muzei, sélectionnez "Sources" et choisissez "Rome : Beauté Éternelle".</string>
+    <string name="command_next">Oeuvre suivante</string>
     <string name="command_wiki">Détails sur Wikipédia</string>
-    <string name="archive_status">Archives: %1$d œuvres prêtes</string>
-    <string name="btn_download_more">Télécharger 10 œuvres de plus</string>
-    <string name="loading_archive">Population des archives…</string>
+    <string name="loading_archive">Chargement de l\'archive…</string>
+    <string name="archive_downloading">Oeuvres téléchargées : %1$d / %2$d</string>
+    <string name="archive_synced">Archive synchronisée (%1$d / %2$d)</string>
+    <string name="btn_download">Télécharger plus</string>
+    <string name="btn_synced">Synchronisé</string>
+    <string name="btn_clear_logs">Vider</string>
+    <string name="log_title">Journal de Synchronisation</string>
+    <string name="day_artwork_prefix">Oeuvre du jour</string>
+    <string name="day_artwork_not_ready">archive pas encore prête</string>
+    <string name="section_language">Langue</string>
+    <string name="project_link_label">Page du projet</string>
+    <string name="settings_title">Mode fond d\'écran</string>
+    <string name="mode_day_only">Uniquement l\'oeuvre du jour</string>
+    <string name="mode_rotation">Rotation avec l\'oeuvre du jour</string>
+    <string name="rotations_label">Oeuvres aléatoires entre chaque oeuvre du jour :</string>
+    <string name="btn_apply">Appliquer</string>
+    <string name="settings_saved">Paramètres sauvegardés. Muzei se mettra à jour bientôt.</string>
 </resources>

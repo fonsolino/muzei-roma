@@ -2,77 +2,41 @@
 
 Tutte le modifiche degne di nota a questo progetto saranno documentate in questo file.
 
-## [0.13] - 2026-03-16
-
-### Corretto
-- Rimosso `file_paths.xml` orfano (nessun FileProvider dichiarato nel Manifest).
-- Aggiunto `fallbackToDestructiveMigration()` per gestire versioni database < 4 senza crash.
-- `executeRequest()` ora propaga le eccezioni al chiamante per una corretta gestione degli errori di rete.
-- `Response` OkHttp chiusa correttamente tramite `.use {}` eliminando potenziali connection leak.
-- Ripristinato `persistentUri` all'URL HTTPS originale per stabilità con Muzei API.
-- `proguard-rules.pro` reso chirurgico: keep solo su classi/membri strettamente necessari.
-
-## [0.12] - 2026-03-16
-
-### Corretto
-- Estensione file immagine derivata dal `Content-Type` HTTP (non più hardcoded `.jpg`).
-- `OkHttpClient` reso singleton via `companion object` + `lazy` (evita ricreazione ad ogni worker run).
-- Aggiunto `readTimeout(30s)` a `OkHttpClient`.
-- `totalArtworks` caricato una sola volta in `onCreate`, non ad ogni `collect`.
-- `webUri` reso null-safe con `takeIf { isNotEmpty() }`.
-
-## [0.11] - 2026-03-16
-
-### Corretto
-- Migrazione Room 4→5 aggiunta esplicitamente (`MIGRATION_4_5`).
-- Creato `proguard-rules.pro` con regole per Room, WorkManager e Muzei API.
-- Rimosso file di test `ninfa_pre.csv` dagli asset.
-
-## [0.10] - 2026-03-15
+## [0.14] - 2026-03-25
 
 ### Aggiunto
-- Implementata la versione 0.10 con miglioramenti strutturali.
-- Rafforzata la logica di visualizzazione centrata (Center Crop) per le immagini orizzontali in Muzei.
-- Ottimizzato il testo del pulsante Home: ora mostra "scarica altre" o "Sincronizzato".
-- Implementata la ritenzione automatica dei log (pruning) per mantenere solo gli ultimi 200 messaggi.
+- **Archivio ampliato**: dataset `ninfa.csv` aggiornato con 7 nuove opere (41 totali), incluse architetture e statue di autore ignoto.
+- **Immagine del giorno**: il wallpaper segue un ciclo di 41 giorni con partenza dal 24 marzo 2026 (colonna GIORNO del CSV).
+- **Impostazioni dentro Muzei**: premendo "Impostazioni" nella selezione sorgente di Muzei si apre `MuzeiSettingsActivity` con le opzioni di rotazione:
+  - *Solo immagine del giorno*: Muzei mostra unicamente l'opera abbinata alla data corrente.
+  - *Rotazione* (default): coda strutturata `[giorno, r1, r2, r3, giorno, ...]`, con numero di opere casuali personalizzabile.
+- **Selezione lingua**: Supporto per Italiano, Inglese e Francese.
+- **Link al progetto**: Aggiunto link al sito ufficiale nella Home.
+
+### Corretto
+- **Visualizzazione Centrata**: Ottimizzata la gestione delle immagini orizzontali affinché Muzei applichi il Center Crop.
+- **Stabilità Rete**: Risolto connection leak in OkHttp e aggiunti timeout di 30s.
+- **Estensioni File**: Gestione dinamica delle estensioni (.jpg, .png, .webp) basata sul Content-Type del server.
+- **Nomi e Accenti**: Risolti problemi di codifica caratteri nel database (passaggio a Windows-1252 per il CSV).
 
 ### Modificato
-- Database portato alla versione 5 con rimozione di `fallbackToDestructiveMigration()` per garantire la persistenza dei dati nei futuri aggiornamenti.
-- Migliorata la stabilità del Provider rimuovendo gli operatori `!!` e aggiungendo timeout di rete espliciti (30s).
-- Corretta la datazione storica del changelog per riflettere lo sviluppo reale del progetto.
+- Portato il database alla versione 6 con gestione corretta delle migrazioni.
+- Target SDK aggiornato a 35 per conformità Play Store.
 
-## [0.9] - 2026-03-15
-- Sperimentazione della logica di centratura immagini landscape.
-- Prima implementazione del pulsante dinamico "scarica altre".
+## [0.13] - 2026-03-16
+- Correzione `persistentUri` per stabilità con Muzei API.
+- Rimozione codice morto e file orfani.
 
-## [0.8] - 2026-03-15
-- Implementazione del sistema di log persistente su Room con interfaccia RecyclerView.
-- Supporto per codifica caratteri Windows-1252 (risoluzione problemi accenti).
-- Correzione automatica degli URL di Wikipedia (risolto download Traditio Legis ed Estasi).
+## [0.12] - 2026-03-16
+- `OkHttpClient` reso singleton per efficienza.
+- Migliorata la gestione del contatore opere nella Home.
 
-## [0.7] - 2026-03-15
-- Introduzione di metadati arricchiti nell'UI di Muzei (Attribution include forma e tipo opera).
-- Sostituzione di `setArtwork()` con `addArtwork()` per evitare glitch sul wallpaper.
-- Aggiunta della nuova icona adattiva dell'app.
+## [0.11] - 2026-03-16
+- Aggiunta migrazione Room 4→5.
+- Configurazione ProGuard/R8 per build di release.
 
-## [0.6] - 2026-03-15
-- Cambio package name ufficiale in `it.fonsolo.muzeiroma`.
-- Nuovo sistema di gestione file: il Provider serve direttamente i flussi immagine a Muzei.
-
-## [0.5] - 2026-03-15
-- Aggiunta licenza open source GPLv3.
-- Passaggio definitivo al dataset `ninfa.csv`.
-
-## [0.4] - 2026-03-12
-- Prima revisione del database Room per il supporto a miniature e download locali.
-
-## [0.3] - 2026-03-12
-- Implementazione database locale SQLite (Room).
-- Aggiunto comando Muzei "Prossima opera" e "Dettagli Wikipedia".
-
-## [0.2] - 2026-03-12
-- Creazione icone launcher adattive iniziali.
-- Ottimizzazione risoluzione immagini a 1920px.
+## [0.10] - 2026-03-15
+- Implementato sistema di log persistente visualizzabile nella Home.
 
 ## [0.1] - 2026-03-12
 - Versione iniziale (Beta).

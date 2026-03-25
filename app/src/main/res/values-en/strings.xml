@@ -1,11 +1,25 @@
 <resources>
-    <string name="app_name">Muzei Rome</string>
+    <string name="app_name">Muzei Roma</string>
     <string name="source_title">Rome: Eternal Beauty</string>
     <string name="source_description">Masterpieces from the museums and squares of Rome.</string>
-    <string name="instructions">To activate: open the Muzei Art Wallpaper app, select "Sources", and choose "Rome: Eternal Beauty".</string>
+    <string name="instructions">To activate: open the Muzei app, select "Sources" and choose "Rome: Eternal Beauty".</string>
     <string name="command_next">Next artwork</string>
     <string name="command_wiki">Details on Wikipedia</string>
-    <string name="archive_status">Archive: %1$d artworks ready</string>
-    <string name="btn_download_more">Download 10 more artworks</string>
-    <string name="loading_archive">Populating archive...</string>
+    <string name="loading_archive">Populating archive…</string>
+    <string name="archive_downloading">Downloaded artworks: %1$d / %2$d</string>
+    <string name="archive_synced">Archive synced (%1$d / %2$d)</string>
+    <string name="btn_download">Download more</string>
+    <string name="btn_synced">Synced</string>
+    <string name="btn_clear_logs">Clear</string>
+    <string name="log_title">Sync Log</string>
+    <string name="day_artwork_prefix">Artwork of the day</string>
+    <string name="day_artwork_not_ready">archive not ready yet</string>
+    <string name="section_language">Language</string>
+    <string name="project_link_label">Project page</string>
+    <string name="settings_title">Wallpaper mode</string>
+    <string name="mode_day_only">Artwork of the day only</string>
+    <string name="mode_rotation">Rotation with artwork of the day</string>
+    <string name="rotations_label">Random artworks between each day artwork:</string>
+    <string name="btn_apply">Apply</string>
+    <string name="settings_saved">Settings saved. Muzei will update shortly.</string>
 </resources>

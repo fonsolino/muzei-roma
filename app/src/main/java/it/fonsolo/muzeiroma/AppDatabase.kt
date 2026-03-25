@@ -23,6 +23,9 @@ interface ArtworkDao {
     @Query("SELECT COUNT(*) FROM artworks WHERE isDownloaded = 1")
     fun getDownloadedCountFlow(): Flow<Int>
 
+    @Query("SELECT COUNT(*) FROM artworks")
+    fun getAllCountFlow(): Flow<Int>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(artworks: List<ArtworkEntity>)
 
@@ -31,15 +34,21 @@ interface ArtworkDao {
 
     @Query("SELECT COUNT(*) FROM artworks WHERE isDownloaded = 1")
     suspend fun getDownloadedCount(): Int
-    
+
     @Update
     suspend fun updateArtwork(artwork: ArtworkEntity)
 
     @Query("SELECT * FROM artworks WHERE code = :code")
     suspend fun getArtworkByCode(code: String): ArtworkEntity?
+
+    @Query("SELECT * FROM artworks WHERE day = :day LIMIT 1")
+    suspend fun getArtworkByDay(day: Int): ArtworkEntity?
+
+    @Query("SELECT * FROM artworks WHERE code != :excludeCode ORDER BY RANDOM() LIMIT :limit")
+    suspend fun getRandomArtworksExcluding(excludeCode: String, limit: Int): List<ArtworkEntity>
 }
 
-@Database(entities = [ArtworkEntity::class, LogEntity::class], version = 5, exportSchema = false)
+@Database(entities = [ArtworkEntity::class, LogEntity::class], version = 6, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun artworkDao(): ArtworkDao
     abstract fun logDao(): LogDao
@@ -62,7 +71,7 @@ abstract class AppDatabase : RoomDatabase() {
                     "muzei_roma_db"
                 )
                 .addMigrations(MIGRATION_4_5)
-                .fallbackToDestructiveMigration() // Aggiunto per gestire versioni < 4 senza crash
+                .fallbackToDestructiveMigration()
                 .build()
                 INSTANCE = instance
                 instance
