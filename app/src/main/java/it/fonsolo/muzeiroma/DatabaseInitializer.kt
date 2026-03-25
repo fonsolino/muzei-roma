@@ -23,9 +23,14 @@ object DatabaseInitializer {
                 val inputStream = context.assets.open("ninfa.csv")
                 // Usiamo Windows-1252 per risolvere i problemi di accenti tipici dei CSV Windows
                 val reader = BufferedReader(InputStreamReader(inputStream, Charset.forName("Windows-1252")))
-                
+
                 reader.readLine() // Header
-                
+
+                // Formato ninfa.csv (v2, con colonna GIORNO):
+                // [0] CODICE  [1] GIORNO  [2] AUTORE  [3] TITOLO EN  [4] TITOLO IT
+                // [5] DATA    [6] TECNICA  [7] UBICAZIONE  [8] FORMA  [9] TIPO
+                // [10] PERIODO  [11] IMMAGINE  [12] WIKI_IT  [13] WIKI_EN  [14] WIKI_FR
+
                 var line: String? = reader.readLine()
                 while (line != null) {
                     if (line.trim().isEmpty()) {
@@ -33,26 +38,27 @@ object DatabaseInitializer {
                         continue
                     }
                     val tokens = line.split(";")
-                    if (tokens.size >= 11) {
-                        val rawImageUrl = tokens[10].trim()
+                    if (tokens.size >= 12) {
+                        val rawImageUrl = tokens[11].trim()
                         val cleanImageUrl = cleanWikiUrl(rawImageUrl)
-                        
+
                         artworks.add(
                             ArtworkEntity(
                                 code = tokens[0].trim(),
-                                author = tokens[1].trim(),
-                                titleEn = tokens[2].trim(),
-                                title = tokens[3].trim(),
-                                date = tokens[4].trim(),
-                                technique = tokens[5].trim(),
-                                location = tokens[6].trim(),
-                                form = tokens[7].trim(),
-                                type = tokens[8].trim(),
-                                period = tokens[9].trim(),
+                                day = tokens[1].trim().toIntOrNull() ?: 0,
+                                author = tokens[2].trim(),
+                                titleEn = tokens[3].trim(),
+                                title = tokens[4].trim(),
+                                date = tokens[5].trim(),
+                                technique = tokens[6].trim(),
+                                location = tokens[7].trim(),
+                                form = tokens[8].trim(),
+                                type = tokens[9].trim(),
+                                period = tokens[10].trim(),
                                 imageUrl = cleanImageUrl,
-                                wikiIt = if (tokens.size > 11) tokens[11].trim() else "",
-                                wikiEn = if (tokens.size > 12) tokens[12].trim() else "",
-                                wikiFr = if (tokens.size > 13) tokens[13].trim() else ""
+                                wikiIt = if (tokens.size > 12) tokens[12].trim() else "",
+                                wikiEn = if (tokens.size > 13) tokens[13].trim() else "",
+                                wikiFr = if (tokens.size > 14) tokens[14].trim() else ""
                             )
                         )
                     }

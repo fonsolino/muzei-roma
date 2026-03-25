@@ -2,10 +2,38 @@
     <string name="app_name">Muzei Roma</string>
     <string name="source_title">Roma: Bellezza Eterna</string>
     <string name="source_description">Capolavori dai musei e dalle piazze di Roma.</string>
-    <string name="instructions">Per attivare: apri l\'app Muzei Art Wallpaper, seleziona "Fonti" e scegli "Roma: Bellezza Eterna".</string>
+    <string name="instructions">Per attivare: apri l\'app Muzei, seleziona "Fonti" e scegli "Roma: Bellezza Eterna".</string>
     <string name="command_next">Prossima opera</string>
     <string name="command_wiki">Dettagli su Wikipedia</string>
-    <string name="archive_status">Archivio: %1$d opere pronte</string>
-    <string name="btn_download_more">Scarica altre 10 opere</string>
-    <string name="loading_archive">Popolamento archivio in corso...</string>
+
+    <!-- Stato archivio -->
+    <string name="loading_archive">Popolamento archivio in corso…</string>
+    <string name="archive_downloading">Opere scaricate: %1$d / %2$d</string>
+    <string name="archive_synced">Archivio sincronizzato (%1$d / %2$d)</string>
+
+    <!-- Pulsanti -->
+    <string name="btn_download">scarica altre</string>
+    <string name="btn_synced">Sincronizzato</string>
+    <string name="btn_clear_logs">Svuota</string>
+
+    <!-- Log -->
+    <string name="log_title">Log di Sincronizzazione</string>
+
+    <!-- Immagine del giorno -->
+    <string name="day_artwork_prefix">Opera del giorno</string>
+    <string name="day_artwork_not_ready">archivio non ancora pronto</string>
+
+    <!-- Lingua -->
+    <string name="section_language">Lingua</string>
+
+    <!-- Link progetto -->
+    <string name="project_link_label">Pagina del progetto</string>
+
+    <!-- MuzeiSettingsActivity -->
+    <string name="settings_title">Modalità wallpaper</string>
+    <string name="mode_day_only">Solo immagine del giorno</string>
+    <string name="mode_rotation">Rotazione con immagine del giorno</string>
+    <string name="rotations_label">Opere random tra ogni immagine del giorno:</string>
+    <string name="btn_apply">Applica</string>
+    <string name="settings_saved">Impostazioni salvate. Muzei si aggiornerà a breve.</string>
 </resources>
