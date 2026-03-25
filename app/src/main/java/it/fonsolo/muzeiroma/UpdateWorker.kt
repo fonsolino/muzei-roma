@@ -4,6 +4,7 @@ import android.content.Context
 import android.net.Uri
 import android.util.Log
 import androidx.work.*
+import androidx.work.workDataOf
 import com.google.android.apps.muzei.api.provider.Artwork
 import com.google.android.apps.muzei.api.provider.ProviderContract
 import okhttp3.OkHttpClient
@@ -23,7 +24,7 @@ class UpdateWorker(
     companion object {
         private const val TAG = "UpdateWorker"
         private const val AUTHORITY = "it.fonsolo.muzeiroma.provider"
-        
+
         private val client: OkHttpClient by lazy {
             OkHttpClient.Builder()
                 .connectTimeout(30, TimeUnit.SECONDS)
@@ -49,10 +50,11 @@ class UpdateWorker(
 
         fun runOnceNow(context: Context) {
             val request = OneTimeWorkRequestBuilder<UpdateWorker>()
+                .setInputData(workDataOf("manual" to true))
                 .build()
             WorkManager.getInstance(context).enqueueUniqueWork(
                 "muzei_roma_manual_fetch",
-                ExistingWorkPolicy.REPLACE,
+                ExistingWorkPolicy.KEEP,
                 request
             )
         }
@@ -65,22 +67,29 @@ class UpdateWorker(
 
     override suspend fun doWork(): Result {
         val dao = db.artworkDao()
-        addLog("Avvio sincronizzazione v${BuildConfig.VERSION_NAME}")
+        val isManual = inputData.getBoolean("manual", false)
+
+        if (!isManual) {
+            addLog("Sincronizzazione automatica v${BuildConfig.VERSION_NAME}")
+        }
 
         DatabaseInitializer.populateDatabase(applicationContext)
 
         val artworksToDownload = dao.getArtworksToDownload()
-        
+
+        if (isManual) {
+            addLog("Download manuale: scarico fino a 5 immagini (${artworksToDownload.size} ancora da scaricare)")
+        }
+
         if (artworksToDownload.isNotEmpty()) {
             var downloadedInSession = 0
             for (artwork in artworksToDownload) {
-                if (!artwork.imageUrl.lowercase().contains(Regex("\\.(jpg|jpeg|png|webp)")) && 
+                if (!artwork.imageUrl.lowercase().contains(Regex("\\.(jpg|jpeg|png|webp)")) &&
                     !artwork.imageUrl.contains("Special:FilePath")) {
                     continue
                 }
 
                 try {
-                    // Fix: La Response viene chiusa correttamente tramite .use {}
                     val response = executeRequest(artwork.imageUrl)
                     response.use { resp ->
                         if (resp.isSuccessful) {
@@ -90,14 +99,14 @@ class UpdateWorker(
                                 contentType?.contains("image/webp") == true -> "webp"
                                 else -> "jpg"
                             }
-                            
+
                             val file = getInternalFile(artwork.code, extension)
                             resp.body?.byteStream()?.use { input ->
                                 FileOutputStream(file).use { output ->
                                     input.copyTo(output)
                                 }
                             }
-                            
+
                             if (file.exists() && file.length() > 1024) {
                                 val updatedArtwork = artwork.copy(
                                     isDownloaded = true,
@@ -137,23 +146,63 @@ class UpdateWorker(
         return File(dir, "$code.$extension")
     }
 
-    private suspend fun syncWithMuzei(dao: ArtworkDao) {
-        val artworks = dao.getAllArtworks()
-        val muzeiClient = ProviderContract.getProviderClient(applicationContext, AUTHORITY)
-
-        val muzeiArtworks = artworks.map { entity ->
-            val enrichedAttribution = "${entity.location} • ${entity.form} (${entity.type})"
-            
-            Artwork(
-                token = entity.code,
-                title = entity.title,
-                byline = "${entity.author} (${entity.date})",
-                attribution = enrichedAttribution,
-                // Fix: Torniamo all'URL HTTPS come persistentUri per stabilità
-                persistentUri = Uri.parse(entity.imageUrl),
-                webUri = entity.wikiIt.takeIf { it.isNotEmpty() }?.let { Uri.parse(it) }
-            )
+    private fun toMuzeiArtwork(entity: ArtworkEntity): Artwork {
+        val byline = if (entity.author.isBlank()) {
+            entity.location
+        } else {
+            "${entity.author} (${entity.date})"
         }
-        muzeiClient.addArtwork(muzeiArtworks)
+        val attribution = "${entity.location} • ${entity.form} (${entity.type})"
+        return Artwork(
+            token = entity.code,
+            title = entity.title,
+            byline = byline,
+            attribution = attribution,
+            persistentUri = Uri.parse(entity.imageUrl),
+            webUri = entity.wikiIt.takeIf { it.isNotEmpty() }?.let { Uri.parse(it) }
+        )
+    }
+
+    private suspend fun syncWithMuzei(dao: ArtworkDao) {
+        val muzeiClient = ProviderContract.getProviderClient(applicationContext, AUTHORITY)
+        val mode = RotationSettings.getMode(applicationContext)
+        val rotationsCount = RotationSettings.getRotationsCount(applicationContext)
+
+        val todayGiorno = RotationSettings.getTodayGiorno()
+        addLog("Immagine del giorno: GIORNO $todayGiorno")
+
+        val dayArtwork = dao.getArtworkByDay(todayGiorno)
+        if (dayArtwork == null) {
+            addLog("Nessuna opera per GIORNO $todayGiorno, uso archivio completo", "WARN")
+            muzeiClient.setArtwork(dao.getAllArtworks().map { toMuzeiArtwork(it) })
+            return
+        }
+
+        addLog("Opera del giorno: ${dayArtwork.title}")
+
+        when (mode) {
+            RotationSettings.MODE_DAY_ONLY -> {
+                addLog("Modalità: solo immagine del giorno")
+                muzeiClient.setArtwork(listOf(toMuzeiArtwork(dayArtwork)))
+            }
+            else -> {
+                // MODE_ROTATION: [giorno, r1..rN, giorno, r(N+1)..r(2N), giorno, ...]
+                // Costruiamo 3 cicli completi per avere varietà nella coda Muzei
+                addLog("Modalità: rotazione, $rotationsCount opere tra ogni immagine del giorno")
+                val randoms = dao.getRandomArtworksExcluding(dayArtwork.code, rotationsCount * 3)
+                val dayMuzei = toMuzeiArtwork(dayArtwork)
+                val playlist = mutableListOf<Artwork>()
+                var idx = 0
+                repeat(3) {
+                    playlist.add(dayMuzei)
+                    repeat(rotationsCount) {
+                        if (idx < randoms.size) {
+                            playlist.add(toMuzeiArtwork(randoms[idx++]))
+                        }
+                    }
+                }
+                muzeiClient.setArtwork(playlist)
+            }
+        }
     }
 }

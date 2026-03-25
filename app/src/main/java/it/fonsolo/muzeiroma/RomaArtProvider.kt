@@ -17,7 +17,8 @@ class RomaArtProvider : MuzeiArtProvider() {
     companion object {
         private const val TAG = "RomaArtProvider"
         private const val COMMAND_ID_OPEN_WIKIPEDIA = 2
-        private const val NETWORK_TIMEOUT = 30000 
+        private const val COMMAND_ID_SETTINGS = 3
+        private const val NETWORK_TIMEOUT = 30000
     }
 
     override fun onLoadRequested(initial: Boolean) {
@@ -57,17 +58,27 @@ class RomaArtProvider : MuzeiArtProvider() {
 
     override fun getCommands(artwork: Artwork): List<UserCommand> {
         return listOf(
-            UserCommand(COMMAND_ID_OPEN_WIKIPEDIA, "Dettagli su Wikipedia")
+            UserCommand(COMMAND_ID_OPEN_WIKIPEDIA, "Dettagli su Wikipedia"),
+            UserCommand(COMMAND_ID_SETTINGS, "Impostazioni rotazione")
         )
     }
 
     override fun onCommand(artwork: Artwork, id: Int) {
-        if (id == COMMAND_ID_OPEN_WIKIPEDIA) {
-            artwork.webUri?.let { uri ->
-                val intent = android.content.Intent(android.content.Intent.ACTION_VIEW, uri).apply {
+        val ctx = context ?: return
+        when (id) {
+            COMMAND_ID_OPEN_WIKIPEDIA -> {
+                artwork.webUri?.let { uri ->
+                    val intent = android.content.Intent(android.content.Intent.ACTION_VIEW, uri).apply {
+                        addFlags(android.content.Intent.FLAG_ACTIVITY_NEW_TASK)
+                    }
+                    ctx.startActivity(intent)
+                }
+            }
+            COMMAND_ID_SETTINGS -> {
+                val intent = android.content.Intent(ctx, MuzeiSettingsActivity::class.java).apply {
                     addFlags(android.content.Intent.FLAG_ACTIVITY_NEW_TASK)
                 }
-                context?.startActivity(intent)
+                ctx.startActivity(intent)
             }
         }
     }
