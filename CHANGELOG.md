@@ -2,6 +2,15 @@
 
 Tutte le modifiche degne di nota a questo progetto saranno documentate in questo file.
 
+## [0.16] - 2026-03-26
+
+### Aggiunto
+- **Condivisione opera**: Nuova funzione per condividere l'immagine corrente direttamente dal menu di Muzei.
+- **Supporto FileProvider**: Reintrodotto per permettere la condivisione sicura dei file scaricati con altre applicazioni.
+
+### Modificato
+- Versione dell'app aggiornata a 0.16 (saltata la 0.15).
+
 ## [0.14] - 2026-03-25
 
 ### Aggiunto

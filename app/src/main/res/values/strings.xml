@@ -5,6 +5,7 @@
     <string name="instructions">Per attivare: apri l\'app Muzei, seleziona "Fonti" e scegli "Roma: Bellezza Eterna".</string>
     <string name="command_next">Prossima opera</string>
     <string name="command_wiki">Dettagli su Wikipedia</string>
+    <string name="command_share">Condividi opera</string>
 
     <!-- Stato archivio -->
     <string name="loading_archive">Popolamento archivio in corso…</string>
@@ -27,7 +28,8 @@
     <string name="section_language">Lingua</string>
 
     <!-- Link progetto -->
-    <string name="project_link_label">Pagina del progetto</string>
+    <string name="site_link_label">Sito</string>
+    <string name="repo_link_label">Repository</string>
 
     <!-- MuzeiSettingsActivity -->
     <string name="settings_title">Modalità wallpaper</string>

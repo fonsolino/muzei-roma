@@ -74,6 +74,7 @@ class UpdateWorker(
         }
 
         DatabaseInitializer.populateDatabase(applicationContext)
+        DatabaseInitializer.migrateUrls(applicationContext)
 
         val artworksToDownload = dao.getArtworksToDownload()
 
@@ -86,6 +87,8 @@ class UpdateWorker(
             for (artwork in artworksToDownload) {
                 if (!artwork.imageUrl.lowercase().contains(Regex("\\.(jpg|jpeg|png|webp)")) &&
                     !artwork.imageUrl.contains("Special:FilePath")) {
+                    addLog("URL non scaricabile, uso remoto: ${artwork.title}", "WARN")
+                    dao.updateArtwork(artwork.copy(isDownloaded = true))
                     continue
                 }
 

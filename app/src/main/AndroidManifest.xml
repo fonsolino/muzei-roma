@@ -55,6 +55,23 @@
                 android:value="it.fonsolo.muzeiroma.MuzeiSettingsActivity" />
         </provider>
 
+        <!-- Activity trasparente per la condivisione -->
+        <activity
+            android:name="it.fonsolo.muzeiroma.ShareActivity"
+            android:exported="false"
+            android:theme="@style/Theme.MuzeiRoma" />
+
+        <!-- FileProvider per la condivisione delle immagini -->
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
     </application>
 
 </manifest>

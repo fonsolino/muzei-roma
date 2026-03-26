@@ -1,0 +1,28 @@
+Muzei Roma
+A Muzei wallpaper source dedicated to the art of Rome.
+
+Displays paintings, sculptures and views from Rome's greatest museums — Galleria Borghese, Capitoline Museums, Vatican Museums, Palazzo Barberini, Galleria Doria Pamphilj — with high-resolution images from Wikimedia Commons.
+
+HOW IT WORKS
+
+1. Install Muzei on your device
+2. Install Muzei Roma
+3. In Muzei → select Muzei Roma as source
+4. Images are downloaded in the background and automatically rotated as wallpapers
+
+FEATURES
+
+* Library of over 40 Roman artworks
+* Local image download (4K/1920px from Wikimedia Commons)
+* Daily artwork or automatic rotation
+* Full metadata: author, date, technique, location
+* Direct link to the artwork's Wikipedia page
+* Wallpaper sharing
+* No account or API key required
+
+REQUIREMENTS
+
+* Android 8.0+ (API 26)
+* Muzei app installed
+
+All images are from Wikimedia Commons and used under their respective Creative Commons licences.

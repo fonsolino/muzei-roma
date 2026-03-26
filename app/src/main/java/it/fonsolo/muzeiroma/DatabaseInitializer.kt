@@ -76,6 +76,19 @@ object DatabaseInitializer {
         }
     }
 
+    suspend fun migrateUrls(context: Context) {
+        val db = AppDatabase.getDatabase(context)
+        val dao = db.artworkDao()
+        val lupa = dao.getArtworkByCode("E0008-MSA")
+        if (lupa != null && !lupa.imageUrl.contains("Special:FilePath")) {
+            dao.updateArtwork(lupa.copy(
+                imageUrl = "https://commons.wikimedia.org/wiki/Special:FilePath/Lupa_Capitolina_con_sfondo_bianco.jpg",
+                isDownloaded = false,
+                localUri = null
+            ))
+        }
+    }
+
     private fun cleanWikiUrl(url: String): String {
         if (url.contains("/media/File:")) {
             val fileName = url.substringAfter("/media/File:")

@@ -5,6 +5,7 @@
     <string name="instructions">To activate: open the Muzei app, select "Sources" and choose "Rome: Eternal Beauty".</string>
     <string name="command_next">Next artwork</string>
     <string name="command_wiki">Details on Wikipedia</string>
+    <string name="command_share">Share artwork</string>
     <string name="loading_archive">Populating archive…</string>
     <string name="archive_downloading">Downloaded artworks: %1$d / %2$d</string>
     <string name="archive_synced">Archive synced (%1$d / %2$d)</string>
@@ -15,7 +16,8 @@
     <string name="day_artwork_prefix">Artwork of the day</string>
     <string name="day_artwork_not_ready">archive not ready yet</string>
     <string name="section_language">Language</string>
-    <string name="project_link_label">Project page</string>
+    <string name="site_link_label">Website</string>
+    <string name="repo_link_label">Repository</string>
     <string name="settings_title">Wallpaper mode</string>
     <string name="mode_day_only">Artwork of the day only</string>
     <string name="mode_rotation">Rotation with artwork of the day</string>
