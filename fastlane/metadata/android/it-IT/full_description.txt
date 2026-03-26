@@ -1,0 +1,28 @@
+Muzei Roma
+Sorgente di wallpaper per Muzei dedicata all'arte di Roma.
+
+Mostra dipinti, sculture e vedute provenienti dai grandi musei romani — Galleria Borghese, Musei Capitolini, Musei Vaticani, Palazzo Barberini, Galleria Doria Pamphilj — con immagini in alta risoluzione da Wikimedia Commons.
+
+FUNZIONAMENTO
+
+1. Installa Muzei sul dispositivo
+2. Installa Muzei Roma
+3. In Muzei → seleziona Muzei Roma come sorgente
+4. Le immagini vengono scaricate in background e ruotate automaticamente come wallpaper
+
+CARATTERISTICHE
+
+* Archivio di oltre 40 opere d'arte romane
+* Download locale delle immagini (4K/1920px da Wikimedia Commons)
+* Immagine del giorno o rotazione automatica
+* Metadati completi: autore, data, tecnica, collocazione
+* Link diretto alla pagina Wikipedia dell'opera
+* Condivisione del wallpaper
+* Nessun account, nessuna API key necessaria
+
+REQUISITI
+
+* Android 8.0+ (API 26)
+* App Muzei installata
+
+Tutte le immagini provengono da Wikimedia Commons e sono utilizzate secondo le rispettive licenze Creative Commons.

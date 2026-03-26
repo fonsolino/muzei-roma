@@ -1,0 +1,4 @@
+* Condivisione del wallpaper direttamente da Muzei
+* Comandi Wikipedia e Condividi nel menu di Muzei
+* Download locale delle immagini in background
+* Correzioni varie e miglioramenti di stabilità

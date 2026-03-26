@@ -23,11 +23,14 @@ class MainActivity : AppCompatActivity() {
     private lateinit var rbLangIt: RadioButton
     private lateinit var rbLangEn: RadioButton
     private lateinit var rbLangFr: RadioButton
-    private lateinit var tvProjectLink: TextView
+    private lateinit var tvSiteLink: TextView
+    private lateinit var tvRepoLink: TextView
     private val logAdapter = LogAdapter()
 
     companion object {
         const val PREF_LANGUAGE = "language"
+        const val URL_SITE = "https://www.aibofobia.net/wrm/"
+        const val URL_REPO = "https://github.com/fonsolino/muzei-roma/"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,7 +45,8 @@ class MainActivity : AppCompatActivity() {
         rbLangIt      = findViewById(R.id.rb_lang_it)
         rbLangEn      = findViewById(R.id.rb_lang_en)
         rbLangFr      = findViewById(R.id.rb_lang_fr)
-        tvProjectLink = findViewById(R.id.tv_project_link)
+        tvSiteLink    = findViewById(R.id.tv_site_link)
+        tvRepoLink    = findViewById(R.id.tv_repo_link)
 
         rvLogs.layoutManager = LinearLayoutManager(this)
         rvLogs.adapter = logAdapter
@@ -68,9 +72,11 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        // Link progetto
-        tvProjectLink.setOnClickListener {
-            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://www.aibofobia.net/wrm/")))
+        tvSiteLink.setOnClickListener {
+            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(URL_SITE)))
+        }
+        tvRepoLink.setOnClickListener {
+            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(URL_REPO)))
         }
 
         btnDownload.setOnClickListener {

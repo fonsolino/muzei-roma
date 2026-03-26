@@ -1,0 +1,4 @@
+* Share wallpaper directly from Muzei
+* Wikipedia and Share commands in Muzei menu
+* Local image download in background
+* Various bug fixes and stability improvements
