@@ -2,6 +2,11 @@
 
 Tutte le modifiche degne di nota a questo progetto saranno documentate in questo file.
 
+## [0.17] - 2026-04-01
+
+### Modificato
+- Rimosso plugin `foojay-resolver` da `settings.gradle` (compatibilità F-Droid).
+
 ## [0.16] - 2026-03-26
 
 ### Aggiunto

@@ -45,13 +45,13 @@ RepoType: git
 Repo: https://github.com/fonsolino/muzei-roma
 
 Builds:
-  - versionName: '0.16'
-    versionCode: 16
-    commit: v0.16
+  - versionName: '0.17'
+    versionCode: 17
+    commit: v0.17
     gradle:
       - yes
 
 AutoUpdateMode: Version
 UpdateCheckMode: Tags
-CurrentVersion: '0.16'
-CurrentVersionCode: 16
+CurrentVersion: '0.17'
+CurrentVersionCode: 17
