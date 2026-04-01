@@ -48,7 +48,6 @@ Builds:
   - versionName: '0.16'
     versionCode: 16
     commit: v0.16
-    subdir: app
     gradle:
       - yes
 
