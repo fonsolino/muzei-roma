@@ -7,50 +7,16 @@ AuthorName: Alfonso Fusco
 SourceCode: https://github.com/fonsolino/muzei-roma
 IssueTracker: https://github.com/fonsolino/muzei-roma/issues
 
-Name: Muzei Roma
-
-Description: |-
-  Sorgente di wallpaper per Muzei dedicata all'arte di Roma.
-
-  Mostra dipinti, sculture e vedute provenienti dai grandi musei romani —
-  Galleria Borghese, Musei Capitolini, Musei Vaticani, Palazzo Barberini,
-  Galleria Doria Pamphilj — con immagini in alta risoluzione da Wikimedia Commons.
-
-  <b>Funzionamento</b>
-
-  1. Installa Muzei sul dispositivo
-  2. Installa Muzei Roma
-  3. In Muzei → seleziona Muzei Roma come sorgente
-  4. Le immagini vengono scaricate in background e ruotate automaticamente come wallpaper
-
-  <b>Caratteristiche</b>
-
-  * Archivio di oltre 40 opere d'arte romane
-  * Download locale delle immagini (1920px da Wikimedia Commons)
-  * Immagine del giorno o rotazione automatica
-  * Metadati completi: autore, data, tecnica, collocazione
-  * Link diretto alla pagina Wikipedia dell'opera
-  * Condivisione del wallpaper corrente
-  * Nessun account, nessuna API key necessaria
-
-  <b>Requisiti</b>
-
-  * Android 8.0+ (API 26)
-  * App Muzei installata
-
-  Tutte le immagini provengono da Wikimedia Commons e sono utilizzate
-  secondo le rispettive licenze Creative Commons.
-
 RepoType: git
 Repo: https://github.com/fonsolino/muzei-roma
 
 Builds:
   - versionName: '0.17'
     versionCode: 17
-    commit: v0.17
+    commit: 304974a6d03daaefc9e09016eb1477ea74dd1f05
+    subdir: app
     gradle:
       - yes
-    output: app/build/outputs/apk/release/app-release-unsigned.apk
 
 AutoUpdateMode: Version
 UpdateCheckMode: Tags
