@@ -7,6 +7,7 @@ import androidx.work.*
 import androidx.work.workDataOf
 import com.google.android.apps.muzei.api.provider.Artwork
 import com.google.android.apps.muzei.api.provider.ProviderContract
+import kotlinx.coroutines.delay
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.Response
@@ -54,7 +55,7 @@ class UpdateWorker(
                 .build()
             WorkManager.getInstance(context).enqueueUniqueWork(
                 "muzei_roma_manual_fetch",
-                ExistingWorkPolicy.KEEP,
+                ExistingWorkPolicy.REPLACE,
                 request
             )
         }
@@ -70,25 +71,24 @@ class UpdateWorker(
         val isManual = inputData.getBoolean("manual", false)
 
         if (!isManual) {
-            addLog("Sincronizzazione automatica v${BuildConfig.VERSION_NAME}")
+            addLog("Avvio sincronizzazione automatica v${BuildConfig.VERSION_NAME}")
         }
 
         DatabaseInitializer.populateDatabase(applicationContext)
-        DatabaseInitializer.migrateUrls(applicationContext)
 
         val artworksToDownload = dao.getArtworksToDownload()
 
         if (isManual) {
-            addLog("Download manuale: scarico fino a 5 immagini (${artworksToDownload.size} ancora da scaricare)")
+            addLog("Download manuale: controllo ${artworksToDownload.size} immagini rimanenti")
         }
 
         if (artworksToDownload.isNotEmpty()) {
             var downloadedInSession = 0
             for (artwork in artworksToDownload) {
+                delay(3000) // Delay anti-ban Wikimedia
+
                 if (!artwork.imageUrl.lowercase().contains(Regex("\\.(jpg|jpeg|png|webp)")) &&
                     !artwork.imageUrl.contains("Special:FilePath")) {
-                    addLog("URL non scaricabile, uso remoto: ${artwork.title}", "WARN")
-                    dao.updateArtwork(artwork.copy(isDownloaded = true))
                     continue
                 }
 
@@ -119,12 +119,15 @@ class UpdateWorker(
                                 downloadedInSession++
                                 addLog("Scaricata: ${artwork.title}")
                             }
+                        } else if (resp.code == 429) {
+                            addLog("Server saturo (429). Riprovo tra poco.", "WARN")
+                            return Result.retry()
                         } else {
-                            addLog("Errore server per ${artwork.title}: ${resp.code}", "ERROR")
+                            addLog("Errore server (${resp.code}) per ${artwork.title}", "ERROR")
                         }
                     }
                 } catch (e: Exception) {
-                    addLog("Errore di rete per ${artwork.title}: ${e.message}", "ERROR")
+                    addLog("Errore rete per ${artwork.title}: ${e.message}", "ERROR")
                 }
                 if (downloadedInSession >= 5) break
             }
@@ -138,7 +141,7 @@ class UpdateWorker(
     private fun executeRequest(url: String): Response {
         val request = Request.Builder()
             .url(url)
-            .header("User-Agent", "MuzeiRoma/${BuildConfig.VERSION_NAME} (it.fonsolo.muzeiroma)")
+            .header("User-Agent", "MuzeiRoma/${BuildConfig.VERSION_NAME} (it.fonsolo.muzeiroma; contact@aibofobia.net)")
             .build()
         return client.newCall(request).execute()
     }
@@ -172,26 +175,18 @@ class UpdateWorker(
         val rotationsCount = RotationSettings.getRotationsCount(applicationContext)
 
         val todayGiorno = RotationSettings.getTodayGiorno()
-        addLog("Immagine del giorno: GIORNO $todayGiorno")
-
         val dayArtwork = dao.getArtworkByDay(todayGiorno)
+        
         if (dayArtwork == null) {
-            addLog("Nessuna opera per GIORNO $todayGiorno, uso archivio completo", "WARN")
             muzeiClient.setArtwork(dao.getAllArtworks().map { toMuzeiArtwork(it) })
             return
         }
 
-        addLog("Opera del giorno: ${dayArtwork.title}")
-
         when (mode) {
             RotationSettings.MODE_DAY_ONLY -> {
-                addLog("Modalità: solo immagine del giorno")
                 muzeiClient.setArtwork(listOf(toMuzeiArtwork(dayArtwork)))
             }
             else -> {
-                // MODE_ROTATION: [giorno, r1..rN, giorno, r(N+1)..r(2N), giorno, ...]
-                // Costruiamo 3 cicli completi per avere varietà nella coda Muzei
-                addLog("Modalità: rotazione, $rotationsCount opere tra ogni immagine del giorno")
                 val randoms = dao.getRandomArtworksExcluding(dayArtwork.code, rotationsCount * 3)
                 val dayMuzei = toMuzeiArtwork(dayArtwork)
                 val playlist = mutableListOf<Artwork>()
@@ -204,6 +199,7 @@ class UpdateWorker(
                         }
                     }
                 }
+                // Usiamo setArtwork per forzare il refresh dei metadati in Muzei
                 muzeiClient.setArtwork(playlist)
             }
         }

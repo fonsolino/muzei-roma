@@ -6,7 +6,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.io.BufferedReader
 import java.io.InputStreamReader
-import java.nio.charset.Charset
+import java.nio.charset.StandardCharsets
 
 object DatabaseInitializer {
     private const val TAG = "DatabaseInitializer"
@@ -21,15 +21,10 @@ object DatabaseInitializer {
             try {
                 val artworks = mutableListOf<ArtworkEntity>()
                 val inputStream = context.assets.open("ninfa.csv")
-                // Usiamo Windows-1252 per risolvere i problemi di accenti tipici dei CSV Windows
-                val reader = BufferedReader(InputStreamReader(inputStream, Charset.forName("Windows-1252")))
+                // Utilizziamo UTF-8 standard per interpretare correttamente il file
+                val reader = BufferedReader(InputStreamReader(inputStream, StandardCharsets.UTF_8))
 
                 reader.readLine() // Header
-
-                // Formato ninfa.csv (v2, con colonna GIORNO):
-                // [0] CODICE  [1] GIORNO  [2] AUTORE  [3] TITOLO EN  [4] TITOLO IT
-                // [5] DATA    [6] TECNICA  [7] UBICAZIONE  [8] FORMA  [9] TIPO
-                // [10] PERIODO  [11] IMMAGINE  [12] WIKI_IT  [13] WIKI_EN  [14] WIKI_FR
 
                 var line: String? = reader.readLine()
                 while (line != null) {
@@ -68,10 +63,10 @@ object DatabaseInitializer {
 
                 if (artworks.isNotEmpty()) {
                     dao.insertAll(artworks)
-                    Log.d(TAG, "Database inizializzato con ${artworks.size} opere (Windows-1252).")
+                    Log.d(TAG, "Database inizializzato con ${artworks.size} opere (UTF-8).")
                 }
             } catch (e: Exception) {
-                Log.e(TAG, "Errore inizializzazione: ${e.message}")
+                Log.e(TAG, "Errore inizializzazione CSV: ${e.message}")
             }
         }
     }
